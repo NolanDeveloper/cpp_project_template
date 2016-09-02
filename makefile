@@ -11,6 +11,6 @@ build/a.out: $(OBJECTS)
 build/%.o: src/%.cpp
 	@mkdir -p build
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
-	{ echo "./build/"; $(CXX) $< $(CXXFLAGS) -MM } > ./build/$*.d 
+	{ echo "./build/"; $(CXX) $< $(CXXFLAGS) -MM; } > ./build/$*.d 
 
 -include $(wildcard ./build/*.d)
