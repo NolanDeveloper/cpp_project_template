@@ -1,15 +1,15 @@
-SOURSES = $(wildcard src/*)
-OBJECTS = $(patsubst src/%.cpp, build/%.o, $(SOURSES))
+SOURSES = $(wildcard ./src/*)
+OBJECTS = $(patsubst ./src/%.cpp, ./build/%.o, $(SOURSES))
 
 CXX = clang++
-CXXFLAGS = -std=c++14 -g -Iinclude
+CXXFLAGS = -std=c++14 -g -I./include
 LDLIBS = 
 
 build/a.out: $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $(LDLIBS) $^ -o $@
+	$(CXX) $^ -o $@ $(LDLIBS) 
 
 build/%.o: src/%.cpp
-	$(CXX) $(CXXFLAGS) $(LDLIBS) -c $< -o $@
-	$(CXX) $(CXXFLAGS) -MM $< | sed 's/\(.*\.o:\)/build\/\1/g' > build/$*.d 
+	$(CXX) -c $< -o $@ $(CXXFLAGS)
+	{ echo "./build/"; $(CXX) $< $(CXXFLAGS) -MM } > ./build/$*.d 
 
--include $(wildcard build/*.d)
+-include $(wildcard ./build/*.d)
