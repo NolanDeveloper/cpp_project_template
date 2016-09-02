@@ -9,6 +9,7 @@ build/a.out: $(OBJECTS)
 	$(CXX) $^ -o $@ $(LDLIBS) 
 
 build/%.o: src/%.cpp
+	@mkdir -p build
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
 	{ echo "./build/"; $(CXX) $< $(CXXFLAGS) -MM } > ./build/$*.d 
 
